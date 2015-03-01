@@ -19,6 +19,8 @@
   template: src=backup.sh.j2 dest=/var/lib/postgresql/backup/backup.sh owner=postgres group=postgres mode="ug+rwx,o=r"
 
 - name: Add Crontask to Backup Database
-  cron: name="Backup SFHDB" hour='*/12'
-        user="postgres" job="/var/lib/postgresql/backup/backup.sh > /dev/null"
-        cron_file="sfhdb"
+  cron: name="Backup Database"
+        minute='0' hour='*/12'
+        user="postgres"
+        job="/var/lib/postgresql/backup/backup.sh > /dev/null 2>&1"
+        cron_file="backupdb"
